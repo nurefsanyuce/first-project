@@ -12,14 +12,12 @@ const Sidebar = () => {
   useEffect(() => {
     const current = location.pathname.split("/")?.[1];
     if (current) {
-      setIsOpen((prev) => ({
-        ...prev,
+      setIsOpen({
         [current]: true,
-      }));
+      });
     }
   }, [location]);
 
-  console.log(location);
   return (
     <aside className="main-sidebar sidebar-dark-primary elevation-4">
       <NavLink to="/" className="brand-link">
