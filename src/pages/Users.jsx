@@ -27,43 +27,14 @@ const Users = () => {
             style={{ left: "0px", right: "inherit" }}
           >
             <li>
-              <a
-                href="https://laravel-admin.murathasdemir.com/admin/page/create"
-                className="dropdown-item"
-              >
-                Page
+              <a href="#" className="dropdown-item">
+                Posta
               </a>
             </li>
+
             <li>
-              <a
-                href="https://laravel-admin.murathasdemir.com/admin/article/create"
-                className="dropdown-item"
-              >
-                Post
-              </a>
-            </li>
-            <li>
-              <a
-                href="https://laravel-admin.murathasdemir.com/admin/category/create"
-                className="dropdown-item"
-              >
-                Category
-              </a>
-            </li>
-            <li>
-              <a
-                href="https://laravel-admin.murathasdemir.com/admin/media/create"
-                className="dropdown-item"
-              >
-                Media
-              </a>
-            </li>
-            <li>
-              <a
-                href="https://laravel-admin.murathasdemir.com/admin/user/create"
-                className="dropdown-item"
-              >
-                User
+              <a href="#" className="dropdown-item">
+                Kullanıcı
               </a>
             </li>
           </ul>

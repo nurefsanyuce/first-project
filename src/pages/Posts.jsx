@@ -1,8 +1,11 @@
 import React from "react";
 import Layout from "../components/Layout";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Posts = () => {
+  const posts = useSelector((state) => state.posts.list);
+
   return (
     <Layout>
       <div className="container-fluid">
@@ -23,11 +26,11 @@ const Posts = () => {
               <div className="container-fluid">
                 <div className="card">
                   <div className="card-header">
-                    <a href="#" className="btn btn-success btn-sm">
-                      Add New
+                    <a href="/post/add" className="btn btn-success btn-sm">
+                      Yeni ekle
                     </a>
                     <a href="#" className="btn btn-warning btn-sm float-right">
-                      <i className="fas fa-trash-alt"></i> Recycle Bin
+                      <i className="fas fa-trash-alt"></i> Geri dönüşüm kutusu
                     </a>
                   </div>
                   <div className="card-body">
@@ -39,7 +42,7 @@ const Posts = () => {
                         <div className="col-sm-12 col-md-6">
                           <div className="dataTables_length" id="table1_length">
                             <label>
-                              Show{" "}
+                              {" "}
                               <select
                                 name="table1_length"
                                 aria-controls="table1"
@@ -50,14 +53,14 @@ const Posts = () => {
                                 <option value="50">50</option>
                                 <option value="100">100</option>
                               </select>{" "}
-                              entries
+                              Kayıt gösteriliyor
                             </label>
                           </div>
                         </div>
                         <div className="col-sm-12 col-md-6">
                           <div id="table1_filter" className="dataTables_filter">
                             <label>
-                              Search:
+                              Arama:
                               <input
                                 type="search"
                                 className="form-control form-control-sm"
@@ -68,7 +71,8 @@ const Posts = () => {
                           </div>
                         </div>
                       </div>
-                      <div className="row">
+
+                      {/* <div className="row">
                         <div className="col-sm-12">
                           <table
                             id="table1"
@@ -97,7 +101,7 @@ const Posts = () => {
                                   colspan="1"
                                   aria-label="Title: activate to sort column ascending"
                                 >
-                                  Title
+                                  Başlık
                                 </th>
                                 <th
                                   className="sorting"
@@ -117,18 +121,9 @@ const Posts = () => {
                                   colspan="1"
                                   aria-label="Category: activate to sort column ascending"
                                 >
-                                  Category
+                                  Kategori
                                 </th>
-                                <th
-                                  className="sorting"
-                                  tabindex="0"
-                                  aria-controls="table1"
-                                  rowspan="1"
-                                  colspan="1"
-                                  aria-label="Hit: activate to sort column ascending"
-                                >
-                                  Hit
-                                </th>
+
                                 <th
                                   className="sorting"
                                   tabindex="0"
@@ -137,19 +132,9 @@ const Posts = () => {
                                   colspan="1"
                                   aria-label="Creation Date: activate to sort column ascending"
                                 >
-                                  Creation Date
+                                  Oluşturulma tarihi
                                 </th>
-                                <th
-                                  className="sorting"
-                                  tabindex="0"
-                                  aria-controls="table1"
-                                  rowspan="1"
-                                  colspan="1"
-                                  aria-label="Statu: activate to sort column ascending"
-                                  style={{ display: "none" }}
-                                >
-                                  Statu
-                                </th>
+
                                 <th
                                   className="sorting"
                                   tabindex="0"
@@ -173,7 +158,7 @@ const Posts = () => {
                                 <td>dfthfhfh</td>
                                 <td>dfthfhfh</td>
                                 <td>Unnamed</td>
-                                <td>0</td>
+
                                 <td>31 minutes ago</td>
                                 <td style={{ display: "none" }}>
                                   <div
@@ -193,32 +178,52 @@ const Posts = () => {
                                       data-onstyle="success"
                                       data-offstyle="danger"
                                     />
-                                    <div className="toggle-group">
-                                      <label className="btn btn-success btn-xs toggle-on">
-                                        Published
-                                      </label>
-                                      <label className="btn btn-danger btn-xs active toggle-off">
-                                        Draft
-                                      </label>
-                                      <span className="toggle-handle btn btn-default btn-xs"></span>
-                                    </div>
                                   </div>
                                 </td>
-                                <td style={{ display: "none" }}>
-                                  <a
-                                    href="#"
-                                    title="Show"
-                                    className="btn btn-success btn-xs"
-                                  >
-                                    <i className="fas fa-arrow-right"></i>
-                                  </a>
-                                  <a
-                                    href="#"
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div> */}
+
+                      <div className="card-body">
+                        <table className="table table-bordered table-hover">
+                          <thead>
+                            <tr>
+                              <th>Fotoğraf</th>
+                              <th>Başlık</th>
+                              <th>Permalink</th>
+                              <th>Kategori</th>
+                              <th>Oluşturulma Tarihi</th>
+                              <th></th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {Object.values(posts).map((post) => (
+                              <tr key={post.id}>
+                                <td>
+                                  {post.photo ? (
+                                    <img
+                                      src={post.photo}
+                                      alt="Fotoğraf"
+                                      style={{ height: "24px" }}
+                                    />
+                                  ) : (
+                                    "Yok"
+                                  )}
+                                </td>
+                                <td>{post.title}</td>
+                                <td>{post.slug}</td>
+                                <td>{post.category}</td>
+                                <td>{post.createdAt}</td>
+                                <td>
+                                  <Link
+                                    to={`/posts/${post.id}`}
                                     title="Edit"
                                     className="btn btn-primary btn-xs"
                                   >
                                     <i className="fas fa-pencil-alt"></i>
-                                  </a>
+                                  </Link>
                                   <a
                                     href="#"
                                     onclick="validate(1)"
@@ -229,68 +234,66 @@ const Posts = () => {
                                   </a>
                                 </td>
                               </tr>
-                            </tbody>
-                          </table>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+
+                    <div className="row">
+                      <div className="col-sm-12 col-md-5">
+                        <div
+                          className="dataTables_info"
+                          id="table1_info"
+                          role="status"
+                          aria-live="polite"
+                        >
+                          Showing 1 to 1 of 1 entries
                         </div>
                       </div>
-                      <div className="row">
-                        <div className="col-sm-12 col-md-5">
-                          <div
-                            className="dataTables_info"
-                            id="table1_info"
-                            role="status"
-                            aria-live="polite"
-                          >
-                            Showing 1 to 1 of 1 entries
-                          </div>
-                        </div>
-                        <div className="col-sm-12 col-md-7">
-                          <div
-                            className="dataTables_paginate paging_simple_numbers"
-                            id="table1_paginate"
-                          >
-                            <ul className="pagination">
-                              <li
-                                className="paginate_button page-item previous disabled"
-                                id="table1_previous"
+                      <div className="col-sm-12 col-md-7">
+                        <div className="float-right" id="table1_paginate">
+                          <ul className="pagination">
+                            <li
+                              className="paginate_button page-item previous disabled"
+                              id="table1_previous"
+                            >
+                              <a
+                                href="#"
+                                aria-controls="table1"
+                                data-dt-idx="0"
+                                tabindex="0"
+                                className="page-link"
                               >
-                                <a
-                                  href="#"
-                                  aria-controls="table1"
-                                  data-dt-idx="0"
-                                  tabindex="0"
-                                  className="page-link"
-                                >
-                                  Previous
-                                </a>
-                              </li>
-                              <li className="paginate_button page-item active">
-                                <a
-                                  href="#"
-                                  aria-controls="table1"
-                                  data-dt-idx="1"
-                                  tabindex="0"
-                                  className="page-link"
-                                >
-                                  1
-                                </a>
-                              </li>
-                              <li
-                                className="paginate_button page-item next disabled"
-                                id="table1_next"
+                                Önceki
+                              </a>
+                            </li>
+                            <li className="paginate_button page-item active">
+                              <a
+                                href="#"
+                                aria-controls="table1"
+                                data-dt-idx="1"
+                                tabindex="0"
+                                className="page-link"
                               >
-                                <a
-                                  href="#"
-                                  aria-controls="table1"
-                                  data-dt-idx="2"
-                                  tabindex="0"
-                                  className="page-link"
-                                >
-                                  Next
-                                </a>
-                              </li>
-                            </ul>
-                          </div>
+                                1
+                              </a>
+                            </li>
+                            <li
+                              className="paginate_button page-item next disabled"
+                              id="table1_next"
+                            >
+                              <a
+                                href="#"
+                                aria-controls="table1"
+                                data-dt-idx="2"
+                                tabindex="0"
+                                className="page-link"
+                              >
+                                Sonraki
+                              </a>
+                            </li>
+                          </ul>
                         </div>
                       </div>
                     </div>

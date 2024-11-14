@@ -273,7 +273,7 @@ const UserAdd = () => {
             </div>
             <div className="row">
               <div className="col-12">
-                <button type="submit" className="btn btn-success float-right">
+                <button type="submit" className="btn btn-primary float-right">
                   Kaydet
                 </button>
               </div>
