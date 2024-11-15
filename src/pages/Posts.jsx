@@ -1,10 +1,16 @@
 import React from "react";
 import Layout from "../components/Layout";
 import { Link, NavLink } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteItem } from "../redux/posts/postsSlice";
 
 const Posts = () => {
+  const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts.list);
+
+  const handleDelete = (id) => {
+    dispatch(deleteItem(id));
+  };
 
   return (
     <Layout>
@@ -84,7 +90,7 @@ const Posts = () => {
                               <tr role="row">
                                 <th
                                   className="sorting_asc"
-                                  tabindex="0"
+                                  tabIndex="0"
                                   aria-controls="table1"
                                   rowspan="1"
                                   colspan="1"
@@ -95,7 +101,7 @@ const Posts = () => {
                                 </th>
                                 <th
                                   className="sorting"
-                                  tabindex="0"
+                                  tabIndex="0"
                                   aria-controls="table1"
                                   rowspan="1"
                                   colspan="1"
@@ -105,7 +111,7 @@ const Posts = () => {
                                 </th>
                                 <th
                                   className="sorting"
-                                  tabindex="0"
+                                  tabIndex="0"
                                   aria-controls="table1"
                                   rowspan="1"
                                   colspan="1"
@@ -115,7 +121,7 @@ const Posts = () => {
                                 </th>
                                 <th
                                   className="sorting"
-                                  tabindex="0"
+                                  tabIndex="0"
                                   aria-controls="table1"
                                   rowspan="1"
                                   colspan="1"
@@ -126,7 +132,7 @@ const Posts = () => {
 
                                 <th
                                   className="sorting"
-                                  tabindex="0"
+                                  tabIndex="0"
                                   aria-controls="table1"
                                   rowspan="1"
                                   colspan="1"
@@ -137,7 +143,7 @@ const Posts = () => {
 
                                 <th
                                   className="sorting"
-                                  tabindex="0"
+                                  tabIndex="0"
                                   aria-controls="table1"
                                   rowspan="1"
                                   colspan="1"
@@ -148,7 +154,7 @@ const Posts = () => {
                             </thead>
                             <tbody>
                               <tr role="row" className="odd">
-                                <td tabindex="0" className="sorting_1">
+                                <td tabIndex="0" className="sorting_1">
                                   <img
                                     src=""
                                     alt=""
@@ -224,14 +230,16 @@ const Posts = () => {
                                   >
                                     <i className="fas fa-pencil-alt"></i>
                                   </Link>
-                                  <a
-                                    href="#"
-                                    onclick="validate(1)"
+                                  <button
+                                    type="button"
+                                    onClick={() => {
+                                      handleDelete(post.id);
+                                    }}
                                     title="Delete"
                                     className="btn btn-danger btn-xs"
                                   >
                                     <i className="far fa-times-circle"></i>
-                                  </a>
+                                  </button>
                                 </td>
                               </tr>
                             ))}
@@ -262,7 +270,7 @@ const Posts = () => {
                                 href="#"
                                 aria-controls="table1"
                                 data-dt-idx="0"
-                                tabindex="0"
+                                tabIndex="0"
                                 className="page-link"
                               >
                                 Önceki
@@ -273,7 +281,7 @@ const Posts = () => {
                                 href="#"
                                 aria-controls="table1"
                                 data-dt-idx="1"
-                                tabindex="0"
+                                tabIndex="0"
                                 className="page-link"
                               >
                                 1
@@ -287,7 +295,7 @@ const Posts = () => {
                                 href="#"
                                 aria-controls="table1"
                                 data-dt-idx="2"
-                                tabindex="0"
+                                tabIndex="0"
                                 className="page-link"
                               >
                                 Sonraki

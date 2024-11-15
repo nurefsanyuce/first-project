@@ -14,8 +14,13 @@ export const postsSlice = createSlice({
       state.list[action.payload.id] = action.payload;
       localStorage.setItem("posts-list", JSON.stringify(state.list));
     },
+    deleteItem: (state, action) => {
+      const id = action.payload;
+      delete state.list[id];
+      localStorage.setItem("posts-list", JSON.stringify(state.list));
+    },
   },
 });
 
-export const { sendPost, getItem } = postsSlice.actions;
+export const { sendPost, getItem, deleteItem } = postsSlice.actions;
 export default postsSlice.reducer;

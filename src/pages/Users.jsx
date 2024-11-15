@@ -117,7 +117,7 @@ const Users = () => {
                           <tr role="row">
                             <th
                               className="sorting_asc"
-                              tabindex="0"
+                              tabIndex="0"
                               aria-controls="table1"
                               rowspan="1"
                               colspan="1"
@@ -128,7 +128,7 @@ const Users = () => {
                             </th>
                             <th
                               className="sorting_asc"
-                              tabindex="0"
+                              tabIndex="0"
                               aria-controls="table1"
                               rowspan="1"
                               colspan="1"
@@ -139,7 +139,7 @@ const Users = () => {
                             </th>
                             <th
                               className="sorting"
-                              tabindex="0"
+                              tabIndex="0"
                               aria-controls="table1"
                               rowspan="1"
                               colspan="1"
@@ -149,7 +149,7 @@ const Users = () => {
                             </th>
                             <th
                               className="sorting"
-                              tabindex="0"
+                              tabIndex="0"
                               aria-controls="table1"
                               rowspan="1"
                               colspan="1"
@@ -159,7 +159,7 @@ const Users = () => {
                             </th>
                             <th
                               className="sorting"
-                              tabindex="0"
+                              tabIndex="0"
                               aria-controls="table1"
                               rowspan="1"
                               colspan="1"
@@ -183,7 +183,7 @@ const Users = () => {
                                   ></img>
                                 )}
                               </td>
-                              <td tabindex="0" className="sorting_1">
+                              <td tabIndex="0" className="sorting_1">
                                 {item.name}
                               </td>
 
@@ -237,7 +237,7 @@ const Users = () => {
                               href="#"
                               aria-controls="table1"
                               data-dt-idx="0"
-                              tabindex="0"
+                              tabIndex="0"
                               className="page-link"
                             >
                               Öncesi
@@ -248,7 +248,7 @@ const Users = () => {
                               href="#"
                               aria-controls="table1"
                               data-dt-idx="1"
-                              tabindex="0"
+                              tabIndex="0"
                               className="page-link"
                             >
                               1
@@ -259,7 +259,7 @@ const Users = () => {
                               href="#"
                               aria-controls="table1"
                               data-dt-idx="2"
-                              tabindex="0"
+                              tabIndex="0"
                               className="page-link"
                             >
                               2
@@ -273,7 +273,7 @@ const Users = () => {
                               href="#"
                               aria-controls="table1"
                               data-dt-idx="3"
-                              tabindex="0"
+                              tabIndex="0"
                               className="page-link"
                             >
                               Sonraki

@@ -9,52 +9,39 @@ const PostAdd = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    setSelectedOption("");
-  }, []);
-
-  const handleChange = (e) => {
-    setSelectedOption(e.target.value);
-  };
-
   const {
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm();
 
   const onSubmit = (data) => {
     const postData = {
-      title: title,
-      slug: slug,
-      category: selectedOption,
+      title: data.title,
+      slug: data.slug,
+      category: data.category,
       id: Date.now().toString(),
       createdAt: new Date().toLocaleDateString(),
-      ...data,
+      text: data.text,
       photo: photo,
     };
     console.log("postAdd", postData);
+
     dispatch(sendPost(postData));
     navigate("/posts");
   };
   const [photo, setPhoto] = useState(null);
-  const [title, setTitle] = useState("");
-  const [slug, setSlug] = useState("");
-  const [selectedOption, setSelectedOption] = useState("");
-  const [text, setText] = useState("");
 
   const handleTitleChange = (e) => {
-    const newTitle = e.target.value;
-    setTitle(newTitle);
-    setSlug(newTitle.toLowerCase().replace(/\s+/g, "-"));
-  };
+    const title = e.target.value;
+    const slug = title
+      .toLowerCase()
+      .replace(/[^a-z0-9\s-]/g, "")
+      .trim()
+      .replace(/\s+/g, "-");
 
-  const handleSlugChange = (e) => {
-    setSlug(e.target.value);
-  };
-
-  const handleTextChange = (e) => {
-    setText(e.target.value);
+    setValue("slug", slug);
   };
 
   const handlePhotoChange = (event) => {
@@ -142,18 +129,18 @@ const PostAdd = () => {
                       )}
                     </div>
                     <div className="form-group">
-                      <label htmlfor="title">Title</label>
+                      <label htmlFor="title">Title</label>
                       <input
                         type="text"
                         id="title"
                         name="title"
-                        value={title}
                         onChange={handleTitleChange} // title güncellenirken slug’ı otomatik değiştir
                         className={`form-control ${
                           errors.title ? "is-invalid" : ""
                         }`}
                         {...register("title", {
                           required: "Bu alan zorunludur.",
+                          onChange: handleTitleChange,
                         })}
                       />
                       {errors.title && (
@@ -163,23 +150,29 @@ const PostAdd = () => {
                       )}
                     </div>
                     <div className="form-group">
-                      <label htmlfor="slug">Permalink</label>
+                      <label htmlFor="slug">Permalink</label>
                       <input
                         type="text"
-                        className="form-control form-control-sm "
                         id="slug"
                         name="slug"
-                        value={slug}
-                        onChange={handleSlugChange}
+                        className={`form-control ${
+                          errors.slug ? "is-invalid" : ""
+                        }`}
+                        {...register("slug", {
+                          required: "Bu alan zorunludur.",
+                        })}
                       />
+                      {errors.slug && (
+                        <div className="invalid-feedback">
+                          {errors.slug.message}
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
                 <div className="form-group">
                   <label htmlFor="category">Kategori</label>
                   <select
-                    value={selectedOption}
-                    onChange={handleChange}
                     className={`form-control ${
                       errors.category ? "is-invalid" : ""
                     }`}
@@ -206,10 +199,9 @@ const PostAdd = () => {
                   <div>
                     <h2>Görüşlerinizi Yazın:</h2>
                     <textarea
+                      name="text"
                       rows="5"
                       cols="30"
-                      value={text}
-                      onChange={handleTextChange}
                       placeholder="Buraya yazın..."
                       className={`form-control ${
                         errors.text ? "is-invalid" : ""
@@ -221,8 +213,6 @@ const PostAdd = () => {
                         {errors.text.message}
                       </div>
                     )}
-                    <p>Yazdığınız metin:</p>
-                    <p>{text}</p>
                   </div>
                 </div>
                 <div className="card" id="save-card">
