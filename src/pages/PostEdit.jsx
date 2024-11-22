@@ -12,32 +12,43 @@ const PostEdit = () => {
 
   const [photo, setPhoto] = useState(null); // Fotoğraf için state
 
-  const post = useSelector((state) => state.posts.single); // Redux'tan mevcut post
+  const singlePost = useSelector((state) => state.posts.single); // Redux'tan mevcut post
 
   const {
     register,
     handleSubmit,
     setValue,
+    reset,
+    watch,
     formState: { errors },
   } = useForm({
-    defaultValues: post || {}, // Varsayılan değerler Redux'tan gelen veri
+    defaultValues: singlePost,
   });
 
   useEffect(() => {
     if (id) {
-      dispatch(getItem(id)); // Redux Action çağrısı
+      dispatch(getItem(id));
     }
-  }, [dispatch, id]);
+  }, [id, dispatch]);
 
   useEffect(() => {
-    if (post) {
-      setPhoto(post.photo || null);
+    if (singlePost) {
+      reset(singlePost); // Redux'tan gelen post verilerini uygula
+      setPhoto(singlePost.photo || null); // Fotoğrafı güncelle
+    } else {
+      reset(); // Eğer post yoksa formu temizle
+    }
+  }, [singlePost, reset]);
 
-      Object.keys(post).forEach((key) => {
-        setValue(key, post[key]);
+  useEffect(() => {
+    if (singlePost) {
+      setPhoto(singlePost.photo || null);
+
+      Object.keys(singlePost).forEach((key) => {
+        setValue(key, singlePost[key]);
       });
     }
-  }, [post, setValue]);
+  }, [singlePost, setValue]);
 
   const handleTitleChange = (e) => {
     const newTitle = e.target.value;
@@ -46,8 +57,7 @@ const PostEdit = () => {
       .toLowerCase()
       .replace(/[^a-z0-9\s-]/g, "")
       .trim()
-      .replace(/\s+/g, "-"); // Slug oluştur
-
+      .replace(/\s+/g, "-");
     setValue("slug", newSlug);
   };
 
@@ -115,20 +125,11 @@ const PostEdit = () => {
                       <input
                         type="file"
                         id="inputPhoto"
-                        {...register("inputPhoto", {
-                          required: "Lütfen kullanıcı fotoğrafınızı  seçiniz",
-                        })}
-                        className={`d-none form-control ${
-                          errors.inputPhoto ? "is-invalid" : ""
-                        }`}
+                        className={`d-none form-control `}
                         accept=".jpeg,.png"
                         onChange={handlePhotoChange}
                       />
-                      {errors.inputPhoto && (
-                        <div className="invalid-feedback">
-                          {errors.inputPhoto.message}
-                        </div>
-                      )}
+
                       {/* Yüklenen fotoğrafın küçük resmi */}
                       {photo && (
                         <div className="mt-2">
@@ -152,10 +153,11 @@ const PostEdit = () => {
                         name="title"
                         onChange={handleTitleChange} // title güncellenirken slug’ı otomatik değiştir
                         className={`form-control ${
-                          errors.title ? "is-invalid" : ""
+                          watch("title") && errors.title ? "is-invalid" : ""
                         }`}
                         {...register("title", {
                           required: "Bu alan zorunludur.",
+                          onChange: handleTitleChange,
                         })}
                       />
                       {errors.title && (
@@ -168,10 +170,20 @@ const PostEdit = () => {
                       <label htmlfor="slug">Permalink</label>
                       <input
                         type="text"
-                        className="form-control form-control-sm "
+                        className={`form-control ${
+                          errors.slug ? "is-invalid" : ""
+                        }`}
+                        {...register("slug", {
+                          required: "Bu alan zorunludur.",
+                        })}
                         id="slug"
                         name="slug"
                       />
+                      {errors.slug && (
+                        <div className="invalid-feedback">
+                          {errors.slug.message}
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -179,7 +191,7 @@ const PostEdit = () => {
                   <label htmlFor="category">Kategori</label>
                   <select
                     className={`form-control ${
-                      errors.category ? "is-invalid" : ""
+                      watch("category") && errors.category ? "is-invalid" : ""
                     }`}
                     id="category"
                     {...register("category", {
@@ -208,7 +220,7 @@ const PostEdit = () => {
                       cols="30"
                       placeholder="Buraya yazın..."
                       className={`form-control ${
-                        errors.text ? "is-invalid" : ""
+                        watch("text") && errors.text ? "is-invalid" : ""
                       }`}
                       {...register("text", {
                         required: "Bu alan zorunludur.",

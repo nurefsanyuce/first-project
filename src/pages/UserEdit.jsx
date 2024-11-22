@@ -28,7 +28,7 @@ const UserEdit = () => {
   useEffect(() => {
     if (singleUser) {
       setPhoto(singleUser.photo);
-      // Form alanlarına redux'tan gelen değerleri setValue ile yükle
+
       Object.keys(singleUser).forEach((key) => {
         setValue(key, singleUser[key]);
       });

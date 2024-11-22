@@ -14,10 +14,14 @@ export const userSlice = createSlice({
       state.list[action.payload.id] = action.payload;
       localStorage.setItem("user-list", JSON.stringify(state.list));
     },
+    deleteUserItem: (state, action) => {
+      const id = action.payload;
+      delete state.list[id];
+      localStorage.setItem("user-list", JSON.stringify(state.list));
+    },
   },
 });
 
-// Reducer fonksiyonları dışa aktarılır
-export const { sendList, getItem } = userSlice.actions;
+export const { sendList, getItem, deleteUserItem } = userSlice.actions;
 
 export default userSlice.reducer;

@@ -8,6 +8,7 @@ import UserEdit from "./pages/UserEdit";
 import Posts from "./pages/Posts";
 import PostAdd from "./pages/PostAdd";
 import PostEdit from "./pages/PostEdit";
+import PostText from "./pages/PostText";
 
 // Layout bileşeni: Navbar, Sidebar ve Footer'ı içerir
 
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
   {
     path: "/posts/:id",
     element: <PostEdit />,
+  },
+  {
+    path: "/posts/:id/text",
+    element: <PostText />,
   },
   {
     path: "/login",

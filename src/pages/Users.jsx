@@ -1,10 +1,16 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
 import Layout from "../components/Layout";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { deleteUserItem } from "../redux/user/userSlice";
 
 const Users = () => {
+  const dispatch = useDispatch();
   const data = useSelector((state) => state.user.list);
+
+  const handleDelete = (id) => {
+    dispatch(deleteUserItem(id));
+  };
 
   return (
     <Layout
@@ -197,14 +203,16 @@ const Users = () => {
                                 >
                                   <i className="fas fa-pencil-alt"></i>
                                 </Link>
-                                <a
-                                  href="#"
-                                  onclick="validate(1)"
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    handleDelete(item.id);
+                                  }}
                                   title="Delete"
                                   className="btn btn-danger btn-xs"
                                 >
                                   <i className="far fa-times-circle"></i>
-                                </a>
+                                </button>
                               </td>
                             </tr>
                           ))}
