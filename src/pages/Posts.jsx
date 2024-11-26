@@ -142,6 +142,17 @@ const Posts = () => {
                               </tr>
                             ))}
                           </tbody>
+                          <tbody>
+                            <tr className="odd">
+                              <td
+                                valign="top"
+                                colspan="6"
+                                className="dataTables_empty"
+                              >
+                                Kayıtlı posta yok
+                              </td>
+                            </tr>
+                          </tbody>
                         </table>
                       </div>
                     </div>

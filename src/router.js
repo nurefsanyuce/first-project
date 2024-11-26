@@ -9,26 +9,26 @@ import Posts from "./pages/Posts";
 import PostAdd from "./pages/PostAdd";
 import PostEdit from "./pages/PostEdit";
 import PostText from "./pages/PostText";
-
-// Layout bileşeni: Navbar, Sidebar ve Footer'ı içerir
+import Categories from "./pages/Categories";
+import CategoryAdd from "./pages/CategoryAdd";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Dashboard />, // Ana sayfa
+    element: <Dashboard />,
   },
   {
     path: "/posts",
-    element: <Posts />, // posta
+    element: <Posts />,
   },
   {
     path: "/post/add",
-    element: <PostAdd />, // posta ekle
+    element: <PostAdd />,
   },
 
   {
     path: "/users",
-    element: <Users />, // Kullanıcılar sayfası
+    element: <Users />,
   },
   {
     path: "/users/add",
@@ -47,8 +47,16 @@ const router = createBrowserRouter([
     element: <PostText />,
   },
   {
+    path: "/categories",
+    element: <Categories />,
+  },
+  {
+    path: "/category/add",
+    element: <CategoryAdd />,
+  },
+  {
     path: "/login",
-    element: <Login />, // Giriş sayfası
+    element: <Login />,
   },
 ]);
 

@@ -137,6 +137,51 @@ const Sidebar = () => {
                 </li>
               </ul>
             </li>
+            <li
+              className={`nav-item has-treeview ${
+                isOpen?.categories ? "menu-open" : ""
+              }`}
+            >
+              <div
+                onClick={() => {
+                  toggleMenu("categories");
+                }}
+                className={`nav-link ${isOpen?.categories ? "active" : ""}`}
+              >
+                <i className="nav-icon fas fa-layer-group"></i>
+                <p>
+                  Kategoriler
+                  <i
+                    className={`right fas ${
+                      isOpen ? "fa-angle-down" : "fa-angle-left"
+                    }`}
+                  ></i>
+                </p>
+              </div>
+              <ul
+                className={`nav nav-treeview ${
+                  isOpen?.categories ? "d-block" : "d-none"
+                }`}
+              >
+                <li className="nav-item">
+                  <NavLink
+                    to="/categories"
+                    className={({ isActive }) =>
+                      isActive ? "nav-link active" : "nav-link"
+                    }
+                  >
+                    <i className="fas fa-share"></i>
+                    <p>Kategoriler</p>
+                  </NavLink>
+                </li>
+                <li className="nav-item">
+                  <a href="/category/add" className="nav-link">
+                    <i className="fas fa-share"></i>
+                    <p>Yeni Ekle</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
 
             <li className="nav-item ">
               <NavLink

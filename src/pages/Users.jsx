@@ -58,7 +58,7 @@ const Users = () => {
                 <li className="breadcrumb-item">
                   <NavLink to="/">Gösterge Paneli</NavLink>
                 </li>
-                <li className="breadcrumb-item active">Dashboard v1</li>
+                <li className="breadcrumb-item active">Kullanıcılar</li>
               </ol>
             </div>
           </div>
@@ -216,6 +216,17 @@ const Users = () => {
                               </td>
                             </tr>
                           ))}
+                        </tbody>
+                        <tbody>
+                          <tr className="odd">
+                            <td
+                              valign="top"
+                              colspan="6"
+                              className="dataTables_empty"
+                            >
+                              Kayıtlı kullanıcı yok
+                            </td>
+                          </tr>
                         </tbody>
                       </table>
                     </div>
