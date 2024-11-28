@@ -16,32 +16,26 @@ const Users = () => {
     <Layout
       navbarContent={
         <li className="nav-item dropdown d-none d-sm-inline-block">
-          <a
+          <button
             id="dropdownSubMenu2"
-            href="#"
-            role="button"
             data-toggle="dropdown"
             aria-haspopup="true"
             aria-expanded="false"
             className="nav-link dropdown-item dropdown-toggle"
           >
             Yeni Ekle
-          </a>
+          </button>
           <ul
             aria-labelledby="dropdownSubMenu2"
             className="dropdown-menu border-0 shadow"
             style={{ left: "0px", right: "inherit" }}
           >
             <li>
-              <a href="#" className="dropdown-item">
-                Posta
-              </a>
+              <button className="dropdown-item">Posta</button>
             </li>
 
             <li>
-              <a href="#" className="dropdown-item">
-                Kullanıcı
-              </a>
+              <button className="dropdown-item">Kullanıcı</button>
             </li>
           </ul>
         </li>
@@ -68,7 +62,7 @@ const Users = () => {
                 <Link to="/users/add" className="btn btn-success btn-sm">
                   Kullanıcı ekle
                 </Link>
-                <button href="#" className="btn btn-warning btn-sm float-right">
+                <button className="btn btn-warning btn-sm float-right">
                   <i className="fas fa-trash-alt"></i> Çöp Kutusu
                 </button>
               </div>
@@ -174,59 +168,59 @@ const Users = () => {
                           </tr>
                         </thead>
                         <tbody>
-                          {Object.values(data).map((item) => (
-                            <tr role="row" className="odd" key={item.id}>
-                              <td>
-                                {item.photo && (
-                                  <img
-                                    style={{
-                                      width: "40px",
-                                      height: "40px",
-                                      borderRadius: "50%",
-                                      objectFit: "cover",
-                                    }}
-                                    src={item.photo}
-                                  ></img>
-                                )}
-                              </td>
-                              <td tabIndex="0" className="sorting_1">
-                                {item.name}
-                              </td>
+                          {Object.values(data).length > 0 ? (
+                            Object.values(data).map((item) => (
+                              <tr role="row" className="odd" key={item.id}>
+                                <td>
+                                  {item.photo && (
+                                    <img
+                                      style={{
+                                        width: "40px",
+                                        height: "40px",
+                                        borderRadius: "50%",
+                                        objectFit: "cover",
+                                      }}
+                                      src={item.photo}
+                                      alt=""
+                                    ></img>
+                                  )}
+                                </td>
+                                <td className="sorting_1">{item.name}</td>
 
-                              <td>{item.email}</td>
-                              <td>{item.status}</td>
-                              <td>
-                                <Link
-                                  to={`/users/${item.id}`}
-                                  title="Edit"
-                                  className="btn btn-primary btn-xs"
-                                >
-                                  <i className="fas fa-pencil-alt"></i>
-                                </Link>
-                                <button
-                                  type="button"
-                                  onClick={() => {
-                                    handleDelete(item.id);
-                                  }}
-                                  title="Delete"
-                                  className="btn btn-danger btn-xs"
-                                >
-                                  <i className="far fa-times-circle"></i>
-                                </button>
+                                <td>{item.email}</td>
+                                <td>{item.status}</td>
+                                <td>
+                                  <Link
+                                    to={`/users/${item.id}`}
+                                    title="Edit"
+                                    className="btn btn-primary btn-xs"
+                                  >
+                                    <i className="fas fa-pencil-alt"></i>
+                                  </Link>
+                                  <button
+                                    type="button"
+                                    onClick={() => {
+                                      handleDelete(item.id);
+                                    }}
+                                    title="Delete"
+                                    className="btn btn-danger btn-xs"
+                                  >
+                                    <i className="far fa-times-circle"></i>
+                                  </button>
+                                </td>
+                              </tr>
+                            ))
+                          ) : (
+                            <tr className="odd">
+                              <td
+                                valign="top"
+                                colspan="6"
+                                className="dataTables_empty"
+                              >
+                                Kayıtlı kullanıcı yok
                               </td>
                             </tr>
-                          ))}
-                        </tbody>
-                        <tbody>
-                          <tr className="odd">
-                            <td
-                              valign="top"
-                              colspan="6"
-                              className="dataTables_empty"
-                            >
-                              Kayıtlı kullanıcı yok
-                            </td>
-                          </tr>
+                          )}
                         </tbody>
                       </table>
                     </div>
@@ -252,51 +246,43 @@ const Users = () => {
                             className="paginate_button page-item previous disabled"
                             id="table1_previous"
                           >
-                            <a
-                              href="#"
+                            <button
                               aria-controls="table1"
                               data-dt-idx="0"
-                              tabIndex="0"
                               className="page-link"
                             >
                               Öncesi
-                            </a>
+                            </button>
                           </li>
                           <li className="paginate_button page-item active">
-                            <a
-                              href="#"
+                            <button
                               aria-controls="table1"
                               data-dt-idx="1"
-                              tabIndex="0"
                               className="page-link"
                             >
                               1
-                            </a>
+                            </button>
                           </li>
                           <li className="paginate_button page-item ">
-                            <a
-                              href="#"
+                            <button
                               aria-controls="table1"
                               data-dt-idx="2"
-                              tabIndex="0"
                               className="page-link"
                             >
                               2
-                            </a>
+                            </button>
                           </li>
                           <li
                             className="paginate_button page-item next"
                             id="table1_next"
                           >
-                            <a
-                              href="#"
+                            <button
                               aria-controls="table1"
                               data-dt-idx="3"
-                              tabIndex="0"
                               className="page-link"
                             >
                               Sonraki
-                            </a>
+                            </button>
                           </li>
                         </ul>
                       </div>

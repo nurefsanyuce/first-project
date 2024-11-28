@@ -1,8 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import Layout from "../components/Layout";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import DeleteModal from "../components/DeleteModal";
+import { deleteCateItem } from "../redux/categories/categoriesSlice";
 
 const Categories = () => {
+  const categories = useSelector((state) => state.categories.list);
+  const dispatch = useDispatch();
+  const [delCateItem, setDeleteItem] = useState({});
+
+  const handleDelete = (id) => {
+    dispatch(deleteCateItem(id));
+    setDeleteItem({});
+  };
   return (
     <Layout>
       <div className="container-fluid">
@@ -19,11 +30,12 @@ const Categories = () => {
                 <li className="breadcrumb-item active">Kategoriler</li>
               </ol>
             </div>
-            <div className="content">
-              <div className="container-fluid">
+
+            <div className="container-fluid">
+              <div className="content-header">
                 <div className="card">
                   <div className="card-header">
-                    <a href="#" className="btn btn-success btn-sm">
+                    <a href="/category/add" className="btn btn-success btn-sm">
                       Yeni Ekle
                     </a>
                   </div>
@@ -67,67 +79,57 @@ const Categories = () => {
                       </div>
                       <div className="row">
                         <div className="col-sm-12">
-                          <table
-                            id="table1"
-                            className="table table-bordered table-hover dataTable no-footer dtr-inline"
-                            role="grid"
-                            aria-describedby="table1_info"
-                          >
+                          <table className="table table-bordered table-hover ">
                             <thead>
-                              <tr role="row">
-                                <th
-                                  className="sorting"
-                                  tabindex="0"
-                                  aria-controls="table1"
-                                  rowspan="1"
-                                  colspan="1"
-                                  aria-label="Name: activate to sort column ascending"
-                                >
-                                  İsim
-                                </th>
-
-                                <th
-                                  className="sorting"
-                                  tabindex="0"
-                                  aria-controls="table1"
-                                  rowspan="1"
-                                  colspan="1"
-                                  aria-label="Parent: activate to sort column ascending"
-                                >
-                                  Ürün Adı
-                                </th>
-                                <th
-                                  className="sorting"
-                                  tabindex="0"
-                                  aria-controls="table1"
-                                  rowspan="1"
-                                  colspan="1"
-                                  aria-label="Description: activate to sort column ascending"
-                                >
-                                  Tip
-                                </th>
-                                <th
-                                  className="sorting"
-                                  tabindex="0"
-                                  aria-controls="table1"
-                                  rowspan="1"
-                                  colspan="1"
-                                  aria-label=": activate to sort column ascending"
-                                >
-                                  Üretim Tarihi
-                                </th>
+                              <tr>
+                                <th>İsim</th>
+                                <th>Üst Kategori</th>
+                                <th>Tip</th>
+                                <th>İşlemler</th>
                               </tr>
                             </thead>
                             <tbody>
-                              <tr className="odd">
-                                <td
-                                  valign="top"
-                                  colspan="6"
-                                  className="dataTables_empty"
-                                >
-                                  No data available in table
-                                </td>
-                              </tr>
+                              {Object.values(categories).length > 0 ? (
+                                Object.values(categories).map((cate) => (
+                                  <tr key={cate.id}>
+                                    <td>{cate.name}</td>
+                                    <td>
+                                      {categories[cate.upper]?.name || "-"}
+                                    </td>
+                                    <td>{cate.type}</td>
+                                    <td>
+                                      <Link
+                                        to={`/categories/${cate.id}`}
+                                        title="Edit"
+                                        className="btn btn-primary btn-xs"
+                                      >
+                                        <i className="fas fa-pencil-alt"></i>
+                                      </Link>
+
+                                      <button
+                                        type="button"
+                                        onClick={() => {
+                                          setDeleteItem(cate);
+                                        }}
+                                        title="Delete"
+                                        className="btn btn-danger btn-xs mx-2"
+                                      >
+                                        <i className="fas fa-times-circle"></i>
+                                      </button>
+                                    </td>
+                                  </tr>
+                                ))
+                              ) : (
+                                <tr className="odd">
+                                  <td
+                                    valign="top"
+                                    colSpan="6"
+                                    className="dataTables_empty"
+                                  >
+                                    Kayıt bulunamadı
+                                  </td>
+                                </tr>
+                              )}
                             </tbody>
                           </table>
                         </div>
@@ -153,29 +155,25 @@ const Categories = () => {
                                 className="paginate_button page-item previous disabled"
                                 id="table1_previous"
                               >
-                                <a
-                                  href="#"
+                                <button
                                   aria-controls="table1"
                                   data-dt-idx="0"
-                                  tabindex="0"
                                   className="page-link"
                                 >
                                   Previous
-                                </a>
+                                </button>
                               </li>
                               <li
                                 className="paginate_button page-item next disabled"
                                 id="table1_next"
                               >
-                                <a
-                                  href="#"
+                                <button
                                   aria-controls="table1"
                                   data-dt-idx="1"
-                                  tabindex="0"
                                   className="page-link"
                                 >
                                   Next
-                                </a>
+                                </button>
                               </li>
                             </ul>
                           </div>
@@ -189,6 +187,11 @@ const Categories = () => {
           </div>
         </div>
       </div>
+      <DeleteModal
+        deleteCateItem={delCateItem}
+        setDeleteItem={setDeleteItem}
+        handleDelete={handleDelete}
+      />
     </Layout>
   );
 };

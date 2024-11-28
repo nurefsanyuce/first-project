@@ -35,12 +35,15 @@ const Posts = () => {
               <div className="container-fluid">
                 <div className="card">
                   <div className="card-header">
-                    <a href="/post/add" className="btn btn-success btn-sm">
+                    <NavLink to="/post/add" className="btn btn-success btn-sm">
                       Yeni ekle
-                    </a>
-                    <a href="#" className="btn btn-warning btn-sm float-right">
+                    </NavLink>
+                    <NavLink
+                      to="#"
+                      className="btn btn-warning btn-sm float-right"
+                    >
                       <i className="fas fa-trash-alt"></i> Geri dönüşüm kutusu
-                    </a>
+                    </NavLink>
                   </div>
                   <div className="card-body">
                     <div
@@ -94,64 +97,65 @@ const Posts = () => {
                             </tr>
                           </thead>
                           <tbody>
-                            {Object.values(posts).map((post) => (
-                              <tr key={post.id}>
-                                <td>
-                                  {post.photo ? (
-                                    <img
-                                      src={post.photo}
-                                      alt="Fotoğraf"
-                                      style={{ height: "24px" }}
-                                    />
-                                  ) : (
-                                    "Yok"
-                                  )}
-                                </td>
-                                <td>{post.title}</td>
-                                <td>{post.slug}</td>
-                                <td>{post.category}</td>
-                                <td>{post.createdAt}</td>
-                                <td>
-                                  <Link
-                                    to={`/posts/${post.id}`}
-                                    title="Edit"
-                                    className="btn btn-primary btn-xs"
-                                  >
-                                    <i className="fas fa-pencil-alt"></i>
-                                  </Link>
+                            {Object.values(posts).length > 0 ? (
+                              Object.values(posts).map((post) => (
+                                <tr key={post.id}>
+                                  <td>
+                                    {post.photo ? (
+                                      <img
+                                        src={post.photo}
+                                        alt="Fotoğraf"
+                                        style={{ height: "24px" }}
+                                      />
+                                    ) : (
+                                      "Yok"
+                                    )}
+                                  </td>
+                                  <td>{post.title}</td>
+                                  <td>{post.slug}</td>
+                                  <td>{post.category}</td>
+                                  <td>{post.createdAt}</td>
+                                  <td>
+                                    <Link
+                                      to={`/posts/${post.id}`}
+                                      title="Edit"
+                                      className="btn btn-primary btn-xs"
+                                    >
+                                      <i className="fas fa-pencil-alt"></i>
+                                    </Link>
 
-                                  <button
-                                    type="button"
-                                    onClick={() => {
-                                      setDeleteItem(post);
-                                    }}
-                                    title="Delete"
-                                    className="btn btn-danger btn-xs mx-2"
-                                  >
-                                    <i className="fas fa-times-circle"></i>
-                                  </button>
+                                    <button
+                                      type="button"
+                                      onClick={() => {
+                                        setDeleteItem(post);
+                                      }}
+                                      title="Delete"
+                                      className="btn btn-danger btn-xs mx-2"
+                                    >
+                                      <i className="fas fa-times-circle"></i>
+                                    </button>
 
-                                  <Link
-                                    to={`/posts/${post.id}/text`}
-                                    title="Comment"
-                                    className="btn btn-success btn-xs"
-                                  >
-                                    <i className="fas fa-comment"></i>
-                                  </Link>
+                                    <Link
+                                      to={`/posts/${post.id}/text`}
+                                      title="Comment"
+                                      className="btn btn-success btn-xs"
+                                    >
+                                      <i className="fas fa-comment"></i>
+                                    </Link>
+                                  </td>
+                                </tr>
+                              ))
+                            ) : (
+                              <tr className="odd">
+                                <td
+                                  valign="top"
+                                  colspan="6"
+                                  className="dataTables_empty"
+                                >
+                                  Kayıtlı posta yok
                                 </td>
                               </tr>
-                            ))}
-                          </tbody>
-                          <tbody>
-                            <tr className="odd">
-                              <td
-                                valign="top"
-                                colspan="6"
-                                className="dataTables_empty"
-                              >
-                                Kayıtlı posta yok
-                              </td>
-                            </tr>
+                            )}
                           </tbody>
                         </table>
                       </div>
@@ -175,40 +179,35 @@ const Posts = () => {
                               className="paginate_button page-item previous disabled"
                               id="table1_previous"
                             >
-                              <a
-                                href="#"
+                              <button
                                 aria-controls="table1"
                                 data-dt-idx="0"
                                 tabIndex="0"
                                 className="page-link"
                               >
                                 Önceki
-                              </a>
+                              </button>
                             </li>
                             <li className="paginate_button page-item active">
-                              <a
-                                href="#"
+                              <button
                                 aria-controls="table1"
                                 data-dt-idx="1"
-                                tabIndex="0"
                                 className="page-link"
                               >
                                 1
-                              </a>
+                              </button>
                             </li>
                             <li
                               className="paginate_button page-item next disabled"
                               id="table1_next"
                             >
-                              <a
-                                href="#"
+                              <button
                                 aria-controls="table1"
                                 data-dt-idx="2"
-                                tabIndex="0"
                                 className="page-link"
                               >
                                 Sonraki
-                              </a>
+                              </button>
                             </li>
                           </ul>
                         </div>
