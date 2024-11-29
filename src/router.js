@@ -1,16 +1,17 @@
 import React from "react";
 import { createBrowserRouter } from "react-router-dom";
-import Users from "./pages/Users";
+import Users from "./pages/users/Users";
 import Login from "./pages/Login";
-import UserAdd from "./pages/UserAdd";
+import UserAdd from "./pages/users/UserAdd";
 import Dashboard from "./pages/Dashboard";
-import UserEdit from "./pages/UserEdit";
-import Posts from "./pages/Posts";
-import PostAdd from "./pages/PostAdd";
-import PostEdit from "./pages/PostEdit";
-import PostText from "./pages/PostText";
-import Categories from "./pages/Categories";
-import CategoryAdd from "./pages/CategoryAdd";
+import UserEdit from "./pages/users/UserEdit";
+import Posts from "./pages/posts/Posts";
+import PostAdd from "./pages/posts/PostAdd";
+import PostEdit from "./pages/posts/PostEdit";
+import PostText from "./pages/posts/PostText";
+import Categories from "./pages/categories/Categories";
+import CategoryAdd from "./pages/categories/CategoryAdd";
+import CategoryEdit from "./pages/categories/CategoryEdit";
 
 const router = createBrowserRouter([
   {
@@ -53,6 +54,10 @@ const router = createBrowserRouter([
   {
     path: "/category/add",
     element: <CategoryAdd />,
+  },
+  {
+    path: "/categories/:id",
+    element: <CategoryEdit />,
   },
   {
     path: "/login",

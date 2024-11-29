@@ -1,8 +1,8 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
-import Layout from "../components/Layout";
+import Layout from "../../components/Layout";
 import { useSelector, useDispatch } from "react-redux";
-import { deleteUserItem } from "../redux/user/userSlice";
+import { deleteUserItem } from "../../redux/user/userSlice";
 
 const Users = () => {
   const dispatch = useDispatch();

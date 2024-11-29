@@ -1,9 +1,9 @@
 import React from "react";
-import Layout from "../components/Layout";
-import { useNavigate } from "react-router-dom";
+import Layout from "../../components/Layout";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
-import { sendCate } from "../redux/categories/categoriesSlice";
+import { sendCate } from "../../redux/categories/categoriesSlice";
 
 const CategoryAdd = () => {
   const categories = useSelector((state) => state.categories.list);
@@ -22,7 +22,7 @@ const CategoryAdd = () => {
       id: Date.now().toString(),
       ...data,
     };
-    console.log("postAdd", data);
+    console.log("cateAdd", data);
 
     dispatch(sendCate(cateData));
     navigate("/categories");
@@ -41,7 +41,7 @@ const CategoryAdd = () => {
               <div className="col-sm-6">
                 <ol className="breadcrumb float-sm-right">
                   <li className="breadcrumb-item">
-                    <a href="/">Gösterge Paneli</a>
+                    <NavLink to="/">Gösterge Paneli</NavLink>
                   </li>
                   <li className="breadcrumb-item">Kategori Ekle</li>
                 </ol>

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { getItem } from "../redux/posts/postsSlice";
+import { getItem } from "../../redux/posts/postsSlice";
 
-import Layout from "../components/Layout";
+import Layout from "../../components/Layout";
 
 const PostText = () => {
   const { id } = useParams();
@@ -59,7 +59,7 @@ const PostText = () => {
                   </button>
                 )}
             </p>
-            <a href="/posts">
+            <NavLink to="/posts">
               <button
                 type="button"
                 title="return"
@@ -67,7 +67,7 @@ const PostText = () => {
               >
                 Geri
               </button>
-            </a>
+            </NavLink>
           </div>
         </div>
       </div>

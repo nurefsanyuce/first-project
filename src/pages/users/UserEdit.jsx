@@ -1,21 +1,39 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import Layout from "../components/Layout";
-import { sendList } from "../redux/user/userSlice";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import Layout from "../../components/Layout";
+import { getItem, sendList } from "../../redux/user/userSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
 
-const UserAdd = () => {
+const UserEdit = () => {
+  const [photo, setPhoto] = useState(null);
+  const singleUser = useSelector((state) => state.user.single);
+  const { id } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
     watch,
-  } = useForm();
+  } = useForm({
+    defaultValues: singleUser,
+  });
 
-  const [photo, setPhoto] = useState(null);
+  useEffect(() => {
+    dispatch(getItem(id));
+  }, [id, dispatch]);
+
+  useEffect(() => {
+    if (singleUser) {
+      setPhoto(singleUser.photo);
+
+      Object.keys(singleUser).forEach((key) => {
+        setValue(key, singleUser[key]);
+      });
+    }
+  }, [singleUser, setValue]);
 
   const onSubmit = (data) => {
     const formData = {
@@ -28,7 +46,7 @@ const UserAdd = () => {
     navigate("/users");
   };
 
-  const emailValue = watch("email", "");
+  // const emailValue = watch("email", "");
 
   const handlePhotoChange = (event) => {
     const file = event.target.files[0];
@@ -58,7 +76,7 @@ const UserAdd = () => {
                 <div className="col-sm-6">
                   <ol className="breadcrumb float-sm-right">
                     <li className="breadcrumb-item">
-                      <a href="#">Gösterge Paneli</a>
+                      <NavLink to="#">Gösterge Paneli</NavLink>
                     </li>
                     <li className="breadcrumb-item active">Kullanıcı Ekle</li>
                   </ol>
@@ -158,7 +176,8 @@ const UserAdd = () => {
                           <input
                             className="form-check-input"
                             type="radio"
-                            name="radio1"
+                            name="gender"
+                            {...register("gender", {})}
                           />
                           Kadın
                         </label>
@@ -169,7 +188,8 @@ const UserAdd = () => {
                           <input
                             className="form-check-input"
                             type="radio"
-                            name="radio1"
+                            name="gender"
+                            {...register("gender", {})}
                           />
                           Erkek
                         </label>
@@ -273,7 +293,7 @@ const UserAdd = () => {
             </div>
             <div className="row">
               <div className="col-12">
-                <button type="submit" className="btn btn-primary float-right">
+                <button type="submit" className="btn btn-success float-right">
                   Kaydet
                 </button>
               </div>
@@ -285,4 +305,4 @@ const UserAdd = () => {
   );
 };
 
-export default UserAdd;
+export default UserEdit;

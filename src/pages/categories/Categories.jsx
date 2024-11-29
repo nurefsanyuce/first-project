@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import Layout from "../components/Layout";
+import Layout from "../../components/Layout";
 import { Link, NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import DeleteModal from "../components/DeleteModal";
-import { deleteCateItem } from "../redux/categories/categoriesSlice";
+import DeleteModal from "../../components/DeleteModal";
+import { deleteCateItem } from "../../redux/categories/categoriesSlice";
 
 const Categories = () => {
   const categories = useSelector((state) => state.categories.list);
@@ -14,6 +14,8 @@ const Categories = () => {
     dispatch(deleteCateItem(id));
     setDeleteItem({});
   };
+  console.log(delCateItem);
+
   return (
     <Layout>
       <div className="container-fluid">
@@ -35,9 +37,12 @@ const Categories = () => {
               <div className="content-header">
                 <div className="card">
                   <div className="card-header">
-                    <a href="/category/add" className="btn btn-success btn-sm">
+                    <NavLink
+                      to="/category/add"
+                      className="btn btn-success btn-sm"
+                    >
                       Yeni Ekle
-                    </a>
+                    </NavLink>
                   </div>
                   <div className="card-body">
                     <div
@@ -188,7 +193,7 @@ const Categories = () => {
         </div>
       </div>
       <DeleteModal
-        deleteCateItem={delCateItem}
+        deleteItem={delCateItem}
         setDeleteItem={setDeleteItem}
         handleDelete={handleDelete}
       />

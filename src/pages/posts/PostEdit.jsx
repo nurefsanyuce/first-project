@@ -1,53 +1,68 @@
 import React, { useEffect, useState } from "react";
-import Layout from "../components/Layout";
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { sendPost } from "../redux/posts/postsSlice";
+import Layout from "../../components/Layout";
+import { getItem, sendPost } from "../../redux/posts/postsSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
 
-const PostAdd = () => {
+const PostEdit = () => {
+  const { id } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const [photo, setPhoto] = useState(null);
+
+  const singlePost = useSelector((state) => state.posts.single);
 
   const {
     register,
     handleSubmit,
-    formState: { errors },
     setValue,
-  } = useForm();
+    reset,
+    watch,
+    formState: { errors },
+  } = useForm({
+    defaultValues: singlePost,
+  });
 
-  const onSubmit = (data) => {
-    const postData = {
-      title: data.title,
-      slug: data.slug,
-      category: data.category,
-      id: Date.now().toString(),
-      createdAt: new Date().toLocaleDateString(),
-      text: data.text,
-      photo: photo,
-    };
-    console.log("postAdd", postData);
+  useEffect(() => {
+    if (id) {
+      dispatch(getItem(id));
+    }
+  }, [id, dispatch]);
 
-    dispatch(sendPost(postData));
-    navigate("/posts");
-  };
-  const [photo, setPhoto] = useState(null);
+  useEffect(() => {
+    if (singlePost) {
+      reset(singlePost); // Redux'tan gelen post verilerini uygula
+      setPhoto(singlePost.photo || null); // Fotoğrafı güncelle
+    } else {
+      reset(); // Eğer post yoksa formu temizle
+    }
+  }, [singlePost, reset]);
+
+  useEffect(() => {
+    if (singlePost) {
+      setPhoto(singlePost.photo || null);
+
+      Object.keys(singlePost).forEach((key) => {
+        setValue(key, singlePost[key]);
+      });
+    }
+  }, [singlePost, setValue]);
 
   const handleTitleChange = (e) => {
-    const title = e.target.value;
-    const slug = title
+    const newTitle = e.target.value;
+
+    const newSlug = newTitle
       .toLowerCase()
       .replace(/[^a-z0-9\s-]/g, "")
       .trim()
       .replace(/\s+/g, "-");
-
-    setValue("slug", slug);
+    setValue("slug", newSlug);
   };
 
-  const handlePhotoChange = (event) => {
-    const file = event.target.files[0];
-
-    // Dosya boyutunu kontrol et
+  const handlePhotoChange = (e) => {
+    const file = e.target.files[0];
     if (file && file.size <= 1024 * 1024) {
       const reader = new FileReader();
       reader.onloadend = () => {
@@ -57,6 +72,17 @@ const PostAdd = () => {
     } else {
       alert("Lütfen 1 MB'den küçük bir dosya yükleyin.");
     }
+  };
+
+  const onSubmit = (data) => {
+    const formData = {
+      id,
+      ...data,
+      photo,
+    };
+
+    dispatch(sendPost(formData));
+    navigate("/posts");
   };
 
   return (
@@ -71,7 +97,7 @@ const PostAdd = () => {
               <div className="col-sm-6">
                 <ol className="breadcrumb float-sm-right">
                   <li className="breadcrumb-item">
-                    <a href="/">Gösterge Paneli</a>
+                    <NavLink to="/">Gösterge Paneli</NavLink>
                   </li>
                   <li className="breadcrumb-item">Posta</li>
                   <li className="breadcrumb-item active">Posta Ekle</li>
@@ -99,20 +125,11 @@ const PostAdd = () => {
                       <input
                         type="file"
                         id="inputPhoto"
-                        {...register("inputPhoto", {
-                          required: "Lütfen kullanıcı fotoğrafınızı  seçiniz",
-                        })}
-                        className={`d-none form-control ${
-                          errors.inputPhoto ? "is-invalid" : ""
-                        }`}
+                        className={`d-none form-control `}
                         accept=".jpeg,.png"
                         onChange={handlePhotoChange}
                       />
-                      {errors.inputPhoto && (
-                        <div className="invalid-feedback">
-                          {errors.inputPhoto.message}
-                        </div>
-                      )}
+
                       {/* Yüklenen fotoğrafın küçük resmi */}
                       {photo && (
                         <div className="mt-2">
@@ -129,14 +146,14 @@ const PostAdd = () => {
                       )}
                     </div>
                     <div className="form-group">
-                      <label htmlFor="title">Title</label>
+                      <label htmlfor="title">Title</label>
                       <input
                         type="text"
                         id="title"
                         name="title"
-                        onChange={handleTitleChange} // title güncellenirken slug’ı otomatik değiştir
+                        onChange={handleTitleChange}
                         className={`form-control ${
-                          errors.title ? "is-invalid" : ""
+                          watch("title") && errors.title ? "is-invalid" : ""
                         }`}
                         {...register("title", {
                           required: "Bu alan zorunludur.",
@@ -150,17 +167,17 @@ const PostAdd = () => {
                       )}
                     </div>
                     <div className="form-group">
-                      <label htmlFor="slug">Permalink</label>
+                      <label htmlfor="slug">Permalink</label>
                       <input
                         type="text"
-                        id="slug"
-                        name="slug"
                         className={`form-control ${
                           errors.slug ? "is-invalid" : ""
                         }`}
                         {...register("slug", {
                           required: "Bu alan zorunludur.",
                         })}
+                        id="slug"
+                        name="slug"
                       />
                       {errors.slug && (
                         <div className="invalid-feedback">
@@ -174,7 +191,7 @@ const PostAdd = () => {
                   <label htmlFor="category">Kategori</label>
                   <select
                     className={`form-control ${
-                      errors.category ? "is-invalid" : ""
+                      watch("category") && errors.category ? "is-invalid" : ""
                     }`}
                     id="category"
                     {...register("category", {
@@ -199,14 +216,15 @@ const PostAdd = () => {
                   <div>
                     <h2>Görüşlerinizi Yazın:</h2>
                     <textarea
-                      name="text"
                       rows="5"
                       cols="30"
                       placeholder="Buraya yazın..."
                       className={`form-control ${
-                        errors.text ? "is-invalid" : ""
+                        watch("text") && errors.text ? "is-invalid" : ""
                       }`}
-                      {...register("text", { required: "Bu alan zorunludur." })}
+                      {...register("text", {
+                        required: "Bu alan zorunludur.",
+                      })}
                     />
                     {errors.text && (
                       <div className="invalid-feedback">
@@ -234,4 +252,4 @@ const PostAdd = () => {
   );
 };
 
-export default PostAdd;
+export default PostEdit;

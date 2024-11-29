@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -11,9 +11,9 @@ const Login = () => {
     <div className="login-page">
       <div className="login-box">
         <div className="login-logo">
-          <a href="#">
+          <NavLink to="#">
             <b>Admin</b>LTE
-          </a>
+          </NavLink>
         </div>
         <div className="card">
           <div className="card-body login-card-body">
@@ -62,12 +62,12 @@ const Login = () => {
             </form>
 
             <p className="mb-1">
-              <a href="#">Şifremi Unuttum</a>
+              <NavLink to="#">Şifremi Unuttum</NavLink>
             </p>
             <p className="mb-0">
-              <a href="#" className="text-center">
+              <NavLink to="#" className="text-center">
                 Yeni Üyelik
-              </a>
+              </NavLink>
             </p>
           </div>
         </div>

@@ -36,7 +36,7 @@ const Sidebar = () => {
             <img
               src="/dist/img/user2-160x160.jpg"
               className="img-circle elevation-2"
-              alt="User Image"
+              alt=""
             />
           </div>
           <div className="info">
@@ -130,10 +130,10 @@ const Sidebar = () => {
                   </NavLink>
                 </li>
                 <li className="nav-item">
-                  <a href="/post/add" className="nav-link">
+                  <NavLink to="/post/add" className="nav-link">
                     <i className="fas fa-share"></i>
                     <p>Yeni Ekle</p>
-                  </a>
+                  </NavLink>
                 </li>
               </ul>
             </li>
@@ -175,10 +175,10 @@ const Sidebar = () => {
                   </NavLink>
                 </li>
                 <li className="nav-item">
-                  <a href="/category/add" className="nav-link">
+                  <NavLink to="/category/add" className="nav-link">
                     <i className="fas fa-share"></i>
                     <p>Yeni Ekle</p>
-                  </a>
+                  </NavLink>
                 </li>
               </ul>
             </li>

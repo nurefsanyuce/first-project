@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import Layout from "../components/Layout";
+import Layout from "../../components/Layout";
 import { Link, NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteItem } from "../redux/posts/postsSlice";
-import DeleteModal from "../components/DeleteModal";
+import { deleteItem } from "../../redux/posts/postsSlice";
+import DeleteModal from "../../components/DeleteModal";
 
 const Posts = () => {
   const dispatch = useDispatch();
