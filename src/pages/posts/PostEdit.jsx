@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
 
 const PostEdit = () => {
+  const categories = useSelector((state) => state.categories.list);
+
   const { id } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -202,9 +204,13 @@ const PostEdit = () => {
                     <option value="" disabled>
                       Birini seçiniz
                     </option>
-                    <option value="Şikayet">Şikayet</option>
-                    <option value="Öneri">Öneri</option>
-                    <option value="Memnuniyet">Memnuniyet</option>
+                    {Object.values(categories)
+                      .filter((cat) => {
+                        return cat.type === "posta";
+                      })
+                      .map((cate) => (
+                        <option value={cate.id}>{cate.name}</option>
+                      ))}
                   </select>
                   {errors.category && (
                     <div className="invalid-feedback d-block">

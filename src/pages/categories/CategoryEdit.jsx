@@ -121,6 +121,7 @@ const CategoryEdit = () => {
                         </option>
 
                         <option value="posta">Posta</option>
+                        <option value="urun">Ürün</option>
                       </select>
                       {errors.type && (
                         <div className="invalid-feedback">

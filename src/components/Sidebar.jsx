@@ -69,6 +69,7 @@ const Sidebar = () => {
             role="menu"
             data-accordion="false"
           >
+            {/* Dasboard */}
             <li className="nav-item ">
               <NavLink
                 to="/"
@@ -80,6 +81,8 @@ const Sidebar = () => {
                 <p>Gösterge Paneli</p>
               </NavLink>
             </li>
+
+            {/* Users */}
             <li className="nav-item ">
               <NavLink
                 to="/users"
@@ -92,6 +95,7 @@ const Sidebar = () => {
               </NavLink>
             </li>
 
+            {/* Post */}
             <li
               className={`nav-item has-treeview ${
                 isOpen?.posts ? "menu-open" : ""
@@ -137,6 +141,8 @@ const Sidebar = () => {
                 </li>
               </ul>
             </li>
+
+            {/* Categories */}
             <li
               className={`nav-item has-treeview ${
                 isOpen?.categories ? "menu-open" : ""
@@ -183,6 +189,59 @@ const Sidebar = () => {
               </ul>
             </li>
 
+            {/* Products */}
+            <li
+              className={`nav-item has-treeview ${
+                isOpen?.products ? "menu-open" : ""
+              }`}
+            >
+              <div
+                onClick={() => {
+                  toggleMenu("products");
+                }}
+                className={`nav-link ${isOpen?.products ? "active" : ""}`}
+              >
+                <i className="nav-icon fas fa-box"></i>
+                <p>
+                  Ürünler
+                  <i
+                    className={`right fas ${
+                      isOpen ? "fa-angle-down" : "fa-angle-left"
+                    }`}
+                  ></i>
+                </p>
+              </div>
+              <ul
+                className={`nav nav-treeview ${
+                  isOpen?.products ? "d-block" : "d-none"
+                }`}
+              >
+                <li className="nav-item">
+                  <NavLink
+                    to="/products"
+                    className={({ isActive }) =>
+                      isActive ? "nav-link active" : "nav-link"
+                    }
+                  >
+                    <i className="fas fa-share"></i>
+                    <p>Ürün Listesi</p>
+                  </NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink
+                    to="/product/add"
+                    className={({ isActive }) =>
+                      isActive ? "nav-link active" : "nav-link"
+                    }
+                  >
+                    <i className="fas fa-share"></i>
+                    <p>Yeni Ekle</p>
+                  </NavLink>
+                </li>
+              </ul>
+            </li>
+
+            {/* Login */}
             <li className="nav-item ">
               <NavLink
                 to="/login"

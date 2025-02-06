@@ -46,7 +46,8 @@ const CategoryAdd = () => {
                   <li className="breadcrumb-item">Kategori Ekle</li>
                 </ol>
               </div>
-              <div className="col-md-9">
+
+              <div className="col-md-9 mx-auto mt-3">
                 <div className="card">
                   <div className="card-body">
                     <div className="form-group">
@@ -103,6 +104,7 @@ const CategoryAdd = () => {
                         </option>
 
                         <option value="posta">Posta</option>
+                        <option value="urun">Ürün</option>
                       </select>
                       {errors.type && (
                         <div className="invalid-feedback">
@@ -110,22 +112,32 @@ const CategoryAdd = () => {
                         </div>
                       )}
                     </div>
+                    <div className="form-group">
+                      <label htmlFor="text">
+                        {" "}
+                        Görüşleriniz bizim için önemli{" "}
+                      </label>
+                      <textarea
+                        className="form-control"
+                        id="text"
+                        rows="5"
+                        cols="30"
+                        placeholder="Buraya yazın..."
+                        {...register("text", {})}
+                      />
+                    </div>
                   </div>
                 </div>
-                <div className="form-group">
-                  <h2>Görüşlerinizi Yazın:</h2>
-                  <textarea
-                    className="form-control"
-                    id="text"
-                    rows="5"
-                    cols="30"
-                    placeholder="Buraya yazın..."
-                    {...register("text", {})}
-                  />
+                <div className="row">
+                  <div className="col-12">
+                    <button
+                      type="submit"
+                      className="btn btn-primary float-right"
+                    >
+                      Kaydet
+                    </button>
+                  </div>
                 </div>
-                <button type="submit" className="btn btn-primary float-right">
-                  Kaydet
-                </button>
               </div>
             </div>
           </div>

@@ -12,6 +12,8 @@ import PostText from "./pages/posts/PostText";
 import Categories from "./pages/categories/Categories";
 import CategoryAdd from "./pages/categories/CategoryAdd";
 import CategoryEdit from "./pages/categories/CategoryEdit";
+import Products from "./pages/products/Products";
+import ProductAdd from "./pages/products/ProductAdd";
 
 const router = createBrowserRouter([
   {
@@ -58,6 +60,14 @@ const router = createBrowserRouter([
   {
     path: "/categories/:id",
     element: <CategoryEdit />,
+  },
+  {
+    path: "/products",
+    element: <Products />,
+  },
+  {
+    path: "/product/add",
+    element: <ProductAdd />,
   },
   {
     path: "/login",

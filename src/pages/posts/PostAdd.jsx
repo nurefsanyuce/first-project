@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import Layout from "../../components/Layout";
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 import { sendPost } from "../../redux/posts/postsSlice";
 
 const PostAdd = () => {
+  const categories = useSelector((state) => state.categories.list);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -185,9 +187,13 @@ const PostAdd = () => {
                     <option value="" disabled>
                       Birini seçiniz
                     </option>
-                    <option value="Şikayet">Şikayet</option>
-                    <option value="Öneri">Öneri</option>
-                    <option value="Memnuniyet">Memnuniyet</option>
+                    {Object.values(categories)
+                      .filter((cat) => {
+                        return cat.type === "posta";
+                      })
+                      .map((cate) => (
+                        <option value={cate.id}>{cate.name}</option>
+                      ))}
                   </select>
                   {errors.category && (
                     <div className="invalid-feedback d-block">
