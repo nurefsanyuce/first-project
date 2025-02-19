@@ -64,7 +64,7 @@ const CategoryEdit = () => {
                   <li className="breadcrumb-item">Kategori Ekle</li>
                 </ol>
               </div>
-              <div className="col-md-9">
+              <div className="col-md-9 mx-auto mt-3">
                 <div className="card">
                   <div className="card-body">
                     <div className="form-group">

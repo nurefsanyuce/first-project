@@ -7,7 +7,6 @@ import { sendPost } from "../../redux/posts/postsSlice";
 
 const PostAdd = () => {
   const categories = useSelector((state) => state.categories.list);
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -79,7 +78,7 @@ const PostAdd = () => {
                   <li className="breadcrumb-item active">Posta Ekle</li>
                 </ol>
               </div>
-              <div className="col-md-9">
+              <div className="col-md-9 mx-auto ms-3">
                 <div className="card">
                   <div className="card-body">
                     <input
@@ -170,66 +169,64 @@ const PostAdd = () => {
                         </div>
                       )}
                     </div>
-                  </div>
-                </div>
-                <div className="form-group">
-                  <label htmlFor="category">Kategori</label>
-                  <select
-                    className={`form-control ${
-                      errors.category ? "is-invalid" : ""
-                    }`}
-                    id="category"
-                    {...register("category", {
-                      required: "Lütfen bir kategori seçiniz",
-                    })}
-                    name="category"
-                  >
-                    <option value="" disabled>
-                      Birini seçiniz
-                    </option>
-                    {Object.values(categories)
-                      .filter((cat) => {
-                        return cat.type === "posta";
-                      })
-                      .map((cate) => (
-                        <option value={cate.id}>{cate.name}</option>
-                      ))}
-                  </select>
-                  {errors.category && (
-                    <div className="invalid-feedback d-block">
-                      {errors.category.message}
+                    <div className="form-group">
+                      <label htmlFor="category">Kategori</label>
+                      <select
+                        className={`form-control ${
+                          errors.category ? "is-invalid" : ""
+                        }`}
+                        id="category"
+                        {...register("category", {
+                          required: "Lütfen bir kategori seçiniz",
+                        })}
+                        name="category"
+                      >
+                        <option value="" disabled>
+                          Birini seçiniz
+                        </option>
+                        {Object.values(categories)
+                          .filter((cat) => {
+                            return cat.type === "posta";
+                          })
+                          .map((cate) => (
+                            <option value={cate.id}>{cate.name}</option>
+                          ))}
+                      </select>
+                      {errors.category && (
+                        <div className="invalid-feedback d-block">
+                          {errors.category.message}
+                        </div>
+                      )}
                     </div>
-                  )}
-                </div>
-                <div className="card">
-                  <div>
-                    <h2>Görüşlerinizi Yazın:</h2>
-                    <textarea
-                      name="text"
-                      rows="5"
-                      cols="30"
-                      placeholder="Buraya yazın..."
-                      className={`form-control ${
-                        errors.text ? "is-invalid" : ""
-                      }`}
-                      {...register("text", { required: "Bu alan zorunludur." })}
-                    />
-                    {errors.text && (
-                      <div className="invalid-feedback">
-                        {errors.text.message}
+                    <div className="form-group">
+                      <div>
+                        <label>Görüşlerinizi Yazın</label>
+                        <textarea
+                          name="text"
+                          rows="5"
+                          cols="30"
+                          placeholder="Buraya yazın..."
+                          className={`form-control ${
+                            errors.text ? "is-invalid" : ""
+                          }`}
+                          {...register("text", {
+                            required: "Bu alan zorunludur.",
+                          })}
+                        />
+                        {errors.text && (
+                          <div className="invalid-feedback">
+                            {errors.text.message}
+                          </div>
+                        )}
                       </div>
-                    )}
+                    </div>
                   </div>
                 </div>
-                <div className="card" id="save-card">
-                  <div>
-                    <button
-                      type="submit"
-                      className="btn btn-primary float-right"
-                    >
-                      Kaydet
-                    </button>
-                  </div>
+
+                <div>
+                  <button type="submit" className="btn btn-primary float-right">
+                    Kaydet
+                  </button>
                 </div>
               </div>
             </div>

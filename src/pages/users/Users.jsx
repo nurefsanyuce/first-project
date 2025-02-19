@@ -13,34 +13,7 @@ const Users = () => {
   };
 
   return (
-    <Layout
-      navbarContent={
-        <li className="nav-item dropdown d-none d-sm-inline-block">
-          <button
-            id="dropdownSubMenu2"
-            data-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
-            className="nav-link dropdown-item dropdown-toggle"
-          >
-            Yeni Ekle
-          </button>
-          <ul
-            aria-labelledby="dropdownSubMenu2"
-            className="dropdown-menu border-0 shadow"
-            style={{ left: "0px", right: "inherit" }}
-          >
-            <li>
-              <button className="dropdown-item">Posta</button>
-            </li>
-
-            <li>
-              <button className="dropdown-item">Kullanıcı</button>
-            </li>
-          </ul>
-        </li>
-      }
-    >
+    <Layout>
       <div className="container-fluid">
         <div className="content-header">
           <div className="row mb-2">

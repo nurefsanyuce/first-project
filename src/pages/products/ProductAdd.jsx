@@ -2,12 +2,49 @@ import React, { useState } from "react";
 import Layout from "../../components/Layout";
 import CreatableSelect from "react-select/creatable";
 import { useSelector } from "react-redux";
+import Lightbox from "react-18-image-lightbox";
 
 const ProductAdd = () => {
   const [title, setTitle] = useState(""); // Ürün adı
-  const [features, setFeatures] = useState([{ name: "", url: "" }]); // Sosyal medya alanları
+  const [features, setFeatures] = useState([{ name: "", url: "" }]);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const categories = useSelector((state) => state.categories.list);
+  const [images, setImages] = useState([]);
+  const [isOpen, setIsOpen] = useState(false);
+  const [photoIndex, setPhotoIndex] = useState(0);
+
+  // const {
+  //   register,
+
+  //   formState: { errors },
+  //   setValue,
+  // } = useForm();
+
+  // const onSubmit = (data) => {
+  //   const prodData = {
+  //     id: Date.now().toString(),
+  //     ...data,
+  //   };
+  //   console.log("prodAdd", prodData);
+
+  const handleImageChange = (e) => {
+    const files = Array.from(e.target.files);
+    if (files.length + images.length > 5) {
+      alert("En fazla 5 fotoğraf yükleyebilirsiniz.");
+      return;
+    }
+    const newImages = files.map((file) => URL.createObjectURL(file));
+    setImages((prevImages) => [...prevImages, ...newImages]);
+  };
+
+  const handleImageClick = (index) => {
+    setPhotoIndex(index);
+    setIsOpen(true);
+  };
+
+  const handleRemoveImage = (index) => {
+    setImages((prevImages) => prevImages.filter((_, i) => i !== index));
+  };
 
   // Ürün adı değişikliği
   const handleTitleChange = (e) => {
@@ -51,10 +88,74 @@ const ProductAdd = () => {
 
   return (
     <Layout>
-      <div className="col-md-9">
+      <div className="col-md-9 mx-auto ms-3">
         <div className="card">
           <div className="card-body">
             {/*Ürün fotoğrafı kısmı gelecek */}
+
+            <div className="form-group">
+              <input
+                type="file"
+                id="inputPhoto"
+                accept="image/*"
+                multiple
+                onChange={handleImageChange}
+              />
+
+              <div style={{ display: "flex", flexWrap: "wrap" }}>
+                {images.map((img, index) => (
+                  <div
+                    key={index}
+                    style={{ position: "relative", margin: "10px" }}
+                  >
+                    <img
+                      src={img}
+                      alt={`Ürün Fotoğrafı ${index + 1}`}
+                      style={{
+                        width: "100px",
+                        height: "100px",
+                        cursor: "pointer",
+                      }}
+                      onClick={() => handleImageClick(index)}
+                    />
+                    <button
+                      onClick={() => handleRemoveImage(index)}
+                      style={{
+                        position: "absolute",
+                        top: 0,
+                        right: 0,
+                        background: "black",
+                        color: "white",
+                        border: "none",
+                        borderRadius: "50%",
+                        cursor: "pointer",
+                      }}
+                    >
+                      X
+                    </button>
+                  </div>
+                ))}
+              </div>
+              {isOpen && (
+                <Lightbox
+                  mainSrc={images[photoIndex]}
+                  nextSrc={images[(photoIndex + 1) % images.length]}
+                  prevSrc={
+                    images[(photoIndex + images.length - 1) % images.length]
+                  }
+                  onCloseRequest={() => setIsOpen(false)}
+                  onMovePrevRequest={() =>
+                    setPhotoIndex(
+                      (photoIndex + images.length - 1) % images.length
+                    )
+                  }
+                  onMoveNextRequest={() =>
+                    setPhotoIndex((photoIndex + 1) % images.length)
+                  }
+                />
+              )}
+            </div>
+
             <div className="form-group">
               <label htmlFor="title">Ürün Adı</label>
               <input
@@ -80,12 +181,13 @@ const ProductAdd = () => {
               />
             </div>
             <div className="form-group">
+              <label>Kategoriler</label>
               <CreatableSelect
                 isMulti
                 options={categoryOptions}
                 value={selectedCategories}
                 onChange={handleChange}
-                placeholder="Kategorileri seçin veya yeni bir kategori ekleyin..."
+                placeholder="Kategorileri seçin..."
               />
             </div>
             <div className="form-group ">

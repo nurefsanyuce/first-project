@@ -31,7 +31,7 @@ const Posts = () => {
                 <li className="breadcrumb-item active">Posta</li>
               </ol>
             </div>
-            <div className="content">
+            <div className="col-md-12 mx-auto mt-3">
               <div className="container-fluid">
                 <div className="card">
                   <div className="card-header">

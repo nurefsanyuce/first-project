@@ -87,7 +87,7 @@ const UserEdit = () => {
 
           <section className="content">
             <div className="row">
-              <div className="col-md-6">
+              <div className="col-md-6 mx-auto mt-3">
                 <div className="card card-primary">
                   <div className="card-body" style={{ display: "block" }}>
                     {/* Fotoğraf Yükleme */}
