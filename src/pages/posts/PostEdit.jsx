@@ -35,8 +35,8 @@ const PostEdit = () => {
 
   useEffect(() => {
     if (singlePost) {
-      reset(singlePost); // Redux'tan gelen post verilerini uygula
-      setPhoto(singlePost.photo || null); // Fotoğrafı güncelle
+      reset(singlePost);
+      setPhoto(singlePost.photo || null);
     } else {
       reset(); // Eğer post yoksa formu temizle
     }

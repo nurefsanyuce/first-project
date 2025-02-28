@@ -92,8 +92,8 @@ const Users = () => {
                               className="sorting_asc"
                               tabIndex="0"
                               aria-controls="table1"
-                              rowspan="1"
-                              colspan="1"
+                              rowSpan="1"
+                              colSpan="1"
                               aria-sort="ascending"
                               aria-label="Name: activate to sort column descending"
                             >
@@ -103,8 +103,8 @@ const Users = () => {
                               className="sorting_asc"
                               tabIndex="0"
                               aria-controls="table1"
-                              rowspan="1"
-                              colspan="1"
+                              rowSpan="1"
+                              colSpan="1"
                               aria-sort="ascending"
                               aria-label="Name: activate to sort column descending"
                             >
@@ -114,8 +114,8 @@ const Users = () => {
                               className="sorting"
                               tabIndex="0"
                               aria-controls="table1"
-                              rowspan="1"
-                              colspan="1"
+                              rowSpan="1"
+                              colSpan="1"
                               aria-label="E-mail: activate to sort column ascending"
                             >
                               E-Posta
@@ -124,8 +124,8 @@ const Users = () => {
                               className="sorting"
                               tabIndex="0"
                               aria-controls="table1"
-                              rowspan="1"
-                              colspan="1"
+                              rowSpan="1"
+                              colSpan="1"
                               aria-label="Role: activate to sort column ascending"
                             >
                               Medeni Hali
@@ -134,8 +134,8 @@ const Users = () => {
                               className="sorting"
                               tabIndex="0"
                               aria-controls="table1"
-                              rowspan="1"
-                              colspan="1"
+                              rowSpan="1"
+                              colSpan="1"
                               aria-label=": activate to sort column ascending"
                             ></th>
                           </tr>
@@ -187,7 +187,7 @@ const Users = () => {
                             <tr className="odd">
                               <td
                                 valign="top"
-                                colspan="6"
+                                colSpan="6"
                                 className="dataTables_empty"
                               >
                                 Kayıtlı kullanıcı yok

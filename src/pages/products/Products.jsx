@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Layout from "../../components/Layout";
 import { Link, NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { deleteProdItem } from "../../redux/products/productsSlice";
 import DeleteModal from "../../components/DeleteModal";
 
 const Products = () => {
@@ -10,10 +11,9 @@ const Products = () => {
   const [delProdItem, setDeleteItem] = useState({});
 
   const handleDelete = (id) => {
-    dispatch(delProdItem(id));
+    dispatch(deleteProdItem(id));
     setDeleteItem({});
   };
-  console.log(delProdItem);
 
   return (
     <Layout>
@@ -95,7 +95,7 @@ const Products = () => {
                               <th>Ürün Adı</th>
                               <th>Ürün Açıklaması</th>
                               <th>Kategoriler</th>
-                              <th>Ürün Özellikleri</th>
+                              <th>Oluşturulma Tarihi</th>
                               <th></th>
                             </tr>
                           </thead>
@@ -104,9 +104,9 @@ const Products = () => {
                               Object.values(products).map((prod) => (
                                 <tr key={prod.id}>
                                   <td>
-                                    {prod.photo ? (
+                                    {prod.images?.[0] ? (
                                       <img
-                                        src={prod.photo}
+                                        src={prod.images?.[0]}
                                         alt="Fotoğraf"
                                         style={{ height: "24px" }}
                                       />
@@ -115,12 +115,16 @@ const Products = () => {
                                     )}
                                   </td>
                                   <td>{prod.title}</td>
-                                  <td>{prod.slug}</td>
-                                  <td>{prod.category}</td>
+                                  <td>{prod.description}</td>
+                                  <td>
+                                    {prod.categories?.map((cate) => {
+                                      return cate.label;
+                                    })}
+                                  </td>
                                   <td>{prod.createdAt}</td>
                                   <td>
                                     <Link
-                                      to={`/products/${prod.id}`}
+                                      to={`/product/${prod.id}`}
                                       title="Edit"
                                       className="btn btn-primary btn-xs"
                                     >
@@ -152,7 +156,8 @@ const Products = () => {
                               <tr className="odd">
                                 <td
                                   valign="top"
-                                  colspan="6"
+                                  align="center"
+                                  colSpan="6"
                                   className="dataTables_empty"
                                 >
                                   Kayıtlı posta yok

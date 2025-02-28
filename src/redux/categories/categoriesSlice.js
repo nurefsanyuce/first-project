@@ -22,4 +22,4 @@ export const categoriesSlice = createSlice({
   },
 });
 export const { sendCate, getItem, deleteCateItem } = categoriesSlice.actions;
-export default categoriesSlice;
+export default categoriesSlice.reducer;

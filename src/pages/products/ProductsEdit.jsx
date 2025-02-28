@@ -1,24 +1,32 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Layout from "../../components/Layout";
 import CreatableSelect from "react-select/creatable";
 import { useDispatch, useSelector } from "react-redux";
 import Lightbox from "react-18-image-lightbox";
 import { useForm, Controller } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
-import { sendProd } from "../../redux/products/productsSlice";
+import { useNavigate, useParams } from "react-router-dom";
+import { getItem, sendProd } from "../../redux/products/productsSlice";
 
-const ProductAdd = () => {
+const ProductEdit = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const { id } = useParams();
   const categories = useSelector((state) => state.categories.list);
+  const singleProd = useSelector((state) => state.products.single);
   const categoryOptions = Object.values(categories)
     .filter((cat) => cat.type === "urun")
     .map((cate) => ({ value: cate.name, label: cate.name }));
 
+  const [features, setFeatures] = useState([{ name: "", value: "" }]);
+  const [images, setImages] = useState([]);
+  const [isOpen, setIsOpen] = useState(false);
+  const [photoIndex, setPhotoIndex] = useState(0);
+
   const {
+    reset,
     register,
     handleSubmit,
+
     control,
     formState: { errors },
   } = useForm({
@@ -28,21 +36,31 @@ const ProductAdd = () => {
       categories: [],
     },
   });
+  useEffect(() => {
+    if (id) {
+      dispatch(getItem(id));
+    }
+  }, [id, dispatch]);
 
-  const [features, setFeatures] = useState([{ name: "", value: "" }]);
-  const [images, setImages] = useState([]);
-  const [isOpen, setIsOpen] = useState(false);
-  const [photoIndex, setPhotoIndex] = useState(0);
+  useEffect(() => {
+    if (singleProd) {
+      reset(singleProd);
+      if (singleProd.images) {
+        setImages(singleProd.images);
+      }
+      if (singleProd.features) {
+        setFeatures(singleProd.features);
+      }
+    } else {
+      reset();
+    }
+  }, [singleProd, reset]);
 
   const onSubmit = (data) => {
     const prodData = {
-      title: data.title,
-      description: data.description,
-      categories: data.categories, // Controller aracılığıyla alınan değer
-      features: features,
+      id,
+      ...data,
       images: images,
-      createdAt: new Date().toLocaleDateString(),
-      id: Date.now().toString(),
     };
     console.log("prodAdd", prodData);
 
@@ -131,7 +149,6 @@ const ProductAdd = () => {
           <div className="card">
             <div className="card-body">
               {/* Ürün fotoğrafı kısmı */}
-              "" 1{" "}
               <div className="form-group">
                 <input
                   type="file"
@@ -194,6 +211,7 @@ const ProductAdd = () => {
                   />
                 )}
               </div>
+
               {/* Ürün adı */}
               <div className="form-group">
                 <label htmlFor="title">Ürün Adı</label>
@@ -208,6 +226,7 @@ const ProductAdd = () => {
                   <div className="invalid-feedback">{errors.title.message}</div>
                 )}
               </div>
+
               {/* Ürün açıklaması */}
               <div className="form-group">
                 <label htmlFor="text">Ürün Açıklaması</label>
@@ -230,6 +249,7 @@ const ProductAdd = () => {
                   </div>
                 )}
               </div>
+
               {/* Kategori seçimi: Controller ile entegre edilmiş CreatableSelect */}
               <div className="form-group">
                 <label>Kategoriler</label>
@@ -253,6 +273,7 @@ const ProductAdd = () => {
                   </div>
                 )}
               </div>
+
               {/* Ürün özellikleri */}
               <div className="form-group">
                 <label>Ürün Özellikleri</label>
@@ -313,4 +334,4 @@ const ProductAdd = () => {
   );
 };
 
-export default ProductAdd;
+export default ProductEdit;

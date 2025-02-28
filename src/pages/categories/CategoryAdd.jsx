@@ -82,7 +82,9 @@ const CategoryAdd = () => {
                           Birini seçiniz
                         </option>
                         {Object.values(categories).map((cate) => (
-                          <option value={cate.id}>{cate.name}</option>
+                          <option key={cate.id} value={cate.id}>
+                            {cate.name}
+                          </option>
                         ))}
                       </select>
                     </div>

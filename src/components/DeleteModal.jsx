@@ -11,7 +11,6 @@ const DeleteModal = ({ deleteItem, setDeleteItem, handleDelete }) => {
         className={deleteItem?.id ? "modal fade show" : "modal fade"}
         id="modal-default"
         style={deleteItem?.id ? { display: "block" } : { display: "none" }}
-        aria-hidden="true"
       >
         <div className="modal-dialog">
           <div className="modal-content">

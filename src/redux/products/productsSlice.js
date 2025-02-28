@@ -14,7 +14,7 @@ export const productsSlice = createSlice({
       state.list[action.payload.id] = action.payload;
       localStorage.setItem("products-list", JSON.stringify(state.list));
     },
-    delProdItem: (state, action) => {
+    deleteProdItem: (state, action) => {
       const id = action.payload;
       delete state.list[id];
       localStorage.setItem("products-list", JSON.stringify(state.list));
@@ -22,5 +22,5 @@ export const productsSlice = createSlice({
   },
 });
 
-export const { sendProd, getItem, delProdItem } = productsSlice.actions;
+export const { sendProd, getItem, deleteProdItem } = productsSlice.actions;
 export default productsSlice.reducer;

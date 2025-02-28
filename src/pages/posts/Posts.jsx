@@ -149,7 +149,7 @@ const Posts = () => {
                               <tr className="odd">
                                 <td
                                   valign="top"
-                                  colspan="6"
+                                  colSpan="6"
                                   className="dataTables_empty"
                                 >
                                   Kayıtlı posta yok
