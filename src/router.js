@@ -15,6 +15,7 @@ import CategoryEdit from "./pages/categories/CategoryEdit";
 import Products from "./pages/products/Products";
 import ProductAdd from "./pages/products/ProductAdd";
 import ProductEdit from "./pages/products/ProductsEdit";
+import ProductDetails from "./pages/products/ProductDetails";
 
 const router = createBrowserRouter([
   {
@@ -73,6 +74,10 @@ const router = createBrowserRouter([
   {
     path: "/product/:id",
     element: <ProductEdit />,
+  },
+  {
+    path: "/products/:id/text",
+    element: <ProductDetails />,
   },
   {
     path: "/login",
