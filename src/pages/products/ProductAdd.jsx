@@ -130,8 +130,7 @@ const ProductAdd = () => {
         <div className="col-md-9 mx-auto ms-3">
           <div className="card">
             <div className="card-body">
-              {/* Ürün fotoğrafı kısmı */}
-              "" 1{" "}
+              {/* Ürün fotoğrafı kısmı */}{" "}
               <div className="form-group">
                 <input
                   type="file"

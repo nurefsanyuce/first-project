@@ -44,10 +44,10 @@ const PostText = () => {
           <div className="card-body">
             <h3>{SinglePost?.title || "Başlık Yok"}</h3>
 
-            <div style={{ borderBottom: "2px solid #ccc", margin: "10px 0" }} />
+            <div style={{ borderBottom: "1px solid #ccc", margin: "10px 0" }} />
 
             <h5>{SinglePost?.category || "Categori Yok "}</h5>
-            <div style={{ borderBottom: "2px solid #ccc", margin: "10px 0" }} />
+            <div style={{ borderBottom: "1px solid #ccc", margin: "10px 0" }} />
 
             <p className="card-text">
               {isExpanded ? SinglePost?.text : `${previewText}...`}

@@ -115,7 +115,12 @@ const Products = () => {
                                     )}
                                   </td>
                                   <td>{prod.title}</td>
-                                  <td>{prod.description}</td>
+                                  <td>
+                                    {prod.description.length > 15
+                                      ? `${prod.description.slice(0, 15)}...`
+                                      : prod.description}
+                                  </td>
+
                                   <td>
                                     {prod.categories?.map((cate) => {
                                       return cate.label;
